@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {AiOutlineQuestionCircle} from "react-icons/ai"
 
 const StContainer = styled.div`
     background: #121016;
@@ -18,7 +19,7 @@ const StRightBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 24px;
+    gap: 16px;
 `;
 const StProFile = styled.div`
     width: 26px;
@@ -26,8 +27,9 @@ const StProFile = styled.div`
     background-color: whitesmoke;
     border-radius: 4px;
 `;
-const StIconHelp = styled.div`
-    color: whitesmoke;
+const StIconHelp = styled(AiOutlineQuestionCircle)`
+    color: #D1D2D3;
+    font-size: 22px;
 `;
 
 const StSearchBox = styled.div`

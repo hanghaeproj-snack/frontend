@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {IoIosArrowDown} from "react-icons/io"
+import {IoIosArrowDown} from "react-icons/io";
 
 const StContainer = styled.div`
     width: 236px;
@@ -22,6 +22,7 @@ const StName = styled.h3`
     font-size: 18px;
 
 `;
+
 const StIconArrow = styled(IoIosArrowDown)`
     color: #D1D2D3;
     margin: 0px;

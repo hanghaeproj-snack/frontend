@@ -13,7 +13,6 @@ function SideBar() {
         <StTitle>_12기 공지방</StTitle>
         <StTitle>_12기 공지방</StTitle>
         <StTitle>_12기 공지방</StTitle>
-
       </StChannel>
 
       <StDmBox>
