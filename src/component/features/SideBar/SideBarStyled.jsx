@@ -6,4 +6,4 @@ const StContainer = styled.div`
 
 export {
     StContainer,
-};
+}
