@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import {IoIosArrowDown} from "react-icons/io";
-import {TfiPencilAlt} from "react-icons/tfi";
 
 const StContainer = styled.div`
     width: 100%;
@@ -38,14 +37,16 @@ const StTitleDm = styled.div`
     h3{
     color: whitesmoke;
     font-size: 14px;
+    cursor: pointer;
     }
 `;
-const StTitleDmIcon = styled(TfiPencilAlt)`
-    
-`;
-const StTitle = styled.h3`
+
+const StTitle = styled.div`
+    h3{
     color: whitesmoke;
     font-size: 14px;
+    cursor: pointer;
+    }
 `;
 
 const StDmBox = styled.div`
