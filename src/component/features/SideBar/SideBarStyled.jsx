@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import {IoIosArrowDown} from "react-icons/io";
+import {TfiPencilAlt} from "react-icons/tfi";
 
 const StContainer = styled.div`
-    width: 236px;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: #19171D;
     box-sizing: border-box;
+    border-right: 0.01px solid #363636;
 `;
 const StHeader = styled.div`
     padding: 16px 14px;
-    border-bottom: 0.01px solid #404040;
+    border-bottom: 0.01px solid #363636;
     display: flex;
     align-items: center;
     gap: 2px;
@@ -31,6 +33,16 @@ const StIconArrow = styled(IoIosArrowDown)`
 const StChannel = styled.div`
     padding: 6px 14px;
 `;
+
+const StTitleDm = styled.div`
+    h3{
+    color: whitesmoke;
+    font-size: 14px;
+    }
+`;
+const StTitleDmIcon = styled(TfiPencilAlt)`
+    
+`;
 const StTitle = styled.h3`
     color: whitesmoke;
     font-size: 14px;
@@ -49,4 +61,5 @@ export {
     StChannel,
     StTitle,
     StDmBox,
+    StTitleDm
 }
