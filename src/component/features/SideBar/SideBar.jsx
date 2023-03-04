@@ -1,5 +1,14 @@
 import React from 'react'
-import { StChannel, StContainer, StDmBox, StHeader, StIconArrow, StName, StTitle } from './SideBarStyled'
+import { 
+  StChannel, 
+  StContainer, 
+  StDmBox, 
+  StHeader, 
+  StIconArrow, 
+  StName, 
+  StTitle,
+  StTitleDm,
+} from './SideBarStyled'
 
 function SideBar() {
   return (
@@ -16,7 +25,9 @@ function SideBar() {
       </StChannel>
 
       <StDmBox>
-        <StTitle>다이렉트 메시지</StTitle>
+        <StTitleDm>
+          <h3>다이렉트 메시지</h3>
+        </StTitleDm>
         <StTitle>_12기 공지방</StTitle>
         <StTitle>_12기 공지방</StTitle>
         <StTitle>_12기 공지방</StTitle>
