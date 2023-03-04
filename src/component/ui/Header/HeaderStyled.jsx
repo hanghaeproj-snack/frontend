@@ -21,7 +21,7 @@ const StRightBox = styled.div`
     align-items: center;
     gap: 16px;
 `;
-const StProFile = styled.div`
+const StProFile = styled.button`
     width: 26px;
     height: 26px;
     background-color: whitesmoke;
