@@ -56,7 +56,11 @@ function SearchModalContent() {
               <SearchButton wd="35px" hg="35px" border="none" fc="#ABACAD" fs="26px">x</SearchButton>
             </Modal.Close>
           </SearchBarRow>
-          <SearchSubmitBox>{invite}</SearchSubmitBox>
+          <SearchSubmitBox>
+            {invite.map((item) => {
+              return <PickupData>{item}</PickupData>
+            })}
+            </SearchSubmitBox>
           <UserDataBox>
           {monsters.map((item) => {
               return <SearchDataBox onClick={() => picUpData(item)}>{item}</SearchDataBox>
@@ -64,7 +68,7 @@ function SearchModalContent() {
             {/* {monsters} */}
           </UserDataBox>
           <SearchButtonBox>
-          <SearchButton wd="100px" hg="35px" border="2px solid #333639" fc="#ABACAD" fs="18px">채팅방 생성</SearchButton>
+          <SearchButton wd="100px" hg="35px" border="2px solid #333639" fc="#ABACAD" fs="18px">채널 생성</SearchButton>
           <SearchButton wd="100px" hg="35px" border="2px solid #333639" fc="#ABACAD" fs="18px">DM 생성</SearchButton>
         </SearchButtonBox>
         </SearchBarBox>
@@ -119,6 +123,22 @@ const UserDataBox = styled.div`
   overflow: scroll;
   /* background-color: aqua; */
 `
+const PickupData = styled.div`
+  width: 90px;
+  height: 30px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  padding-top: 5px;
+  color: #D1D2D3;
+  border-radius: 5px;
+  background-color: #222529;
+
+  /* :hover {
+    border-radius: 5px;
+    background-color: #222529;
+  } */
+`
 const SearchButtonBox = styled.div`
   width: 100%;
   height: 15%;
@@ -138,9 +158,17 @@ const SearchDataBox = styled.div`
     background-color: #1263A3;
   }
 `
+
 const SearchSubmitBox = styled.div`
-  width: 100%;
+  width: auto;
+  margin-left: 10px;
+  margin-right: 10px;
   height: 15%;
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  white-space: nowrap;
+  gap: 10px;
   /* background-color: beige; */
 `
 const SearchButton = styled.button`
