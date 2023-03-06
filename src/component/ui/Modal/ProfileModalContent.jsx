@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { StProFile } from "../Header/HeaderStyled";
 import * as Modal from "./ProfileModal";
 import {
@@ -21,15 +21,42 @@ import {
 
 
 function ProfileModalContent() {
+
+
+  // 파일 input타입 Ref
   const imageInput = useRef();
 
+  // 프로필 사진 useState
+  const [ image, setImage ] = useState('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png')
+  
+  // 버튼 클릭시 input타입으로 클릭 포커스 => 버튼으로 UI커스텀
   const onClickImageUpload = () => {
     imageInput.current.click();
   };
+
+  // 파일 업로드 함수
+  const onImageChange = (event) => {
+    console.log(event.target.files[0])
+    if(event.target.files[0]) {
+      // 업로드한 파일로 useState 업데이트하고 axios로 서버에 보내주기
+      setImage(event.target.files[0])
+    } else {
+      // 업로드를 안할 경우 기본으로 
+      setImage('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png')
+    }
+    // 화면에 업로드한 프로필 사진 표시
+    const imageReader = new FileReader();
+    imageReader.onload = () => {
+      if(imageReader.readyState === 2) {
+        setImage(imageReader.result)
+      }
+    }
+    imageReader.readAsDataURL(event.target.files[0])
+  }
   return (
     <Modal.Root>
       <Modal.Trigger asChild>
-        <StProFile></StProFile>
+        <StProFile src={image}></StProFile>
       </Modal.Trigger>
       <Modal.Overlay />
       <StModalContent>
@@ -52,8 +79,12 @@ function ProfileModalContent() {
               <ModalFont fs="20px" mt="10px">
                 프로필 사진
               </ModalFont>
-              <ImageBox />
-              <ImageInput type="file" ref={imageInput} />
+              <ImageBox src={image}/>
+              <ImageInput 
+                type="file" 
+                ref={imageInput}
+                acccept='image/*'
+                onChange={onImageChange}/>
               <ImageButton onClick={onClickImageUpload}>
                 프로필 업로드
               </ImageButton>
@@ -88,134 +119,5 @@ function ProfileModalContent() {
   );
 }
 
-// const StModalContent = styled(Modal.Content)`
-//   left: 50%;
-//   top: 10%;
-//   transform: translate(-60%, -10%);
-//   margin-top: 200px;
-//   border-radius: 12px;
-//   box-sizing: border-box;
-//   padding: 24px;
-//   background-color: #1B1D21;
-//   width: 700px;
-//   height: 600px;
-// `
-// const StWhatModal = styled.div`
-//   /* background-color: yellow; */
-//   width: 100%;
-//   height: 90%;
-// `
-// const ProfileRowInput = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   height: 350px;
-//   border: 2px solid #36373B;
-//   border-left: 1ch;
-//   border-bottom: 1ch;
-//   border-right: 1ch;
-//   /* background-color: green; */
-// `
-// const ProfileRowBoxInput = styled.div`
-
-//   width: 60%;
-// `
-// const ProfileRowBoxImage = styled.div`
-//   width: 40%;
-//   margin: 0 auto;
-// `
-// const ImageBox = styled.div`
-//   width: 100%;
-//   height: 230px;
-
-//   background-color: #7F56C3;
-//   margin: 0 auto;
-//   border-radius: 5px;
-//   /* margin-top: 5px; */
-// `
-// const ImageInput = styled.input`
-//   display: none;
-// `
-// const ImageButton = styled.button`
-//   width: 100%;
-//   height: 40px;
-//   display: flex;
-//   color: #D1D2D3;
-//   justify-content: center;
-//   background-color: #1B1D21;
-//   border: 1px solid #525357;
-//   margin: 0 auto;
-//   font-size: 20px;
-//   border-radius: 5px;
-//   align-items: center;
-//   margin-top: 10px;
-//   cursor: pointer;
-// `
-// const AddressBox = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   margin-top: 5px;
-//   height: 50px;
-//   /* background-color: beige; */
-// `
-// const OutlineMail = styled(AiOutlineMail)`
-//   background-color: gray;
-//   margin-right: 5px;
-//   width: 35px;
-//   height: 70%;
-//   padding: 5px;
-// `
-// const ModalButtonBox = styled.div`
-//   height: 10%;
-//   display: flex;
-//   justify-content: end;
-//   /* background-color: pink; */
-//   border: 2px solid #36373B;
-//   border-left: 1ch;
-//   border-bottom: 1ch;
-//   border-right: 1ch;
-//   align-items: center;
-// `
-// const ModalCloseButton = styled.button`
-//   width: 120px;
-//   height: 40px;
-//   background-color: ${({ bc }) => bc};
-//   border: 2px solid ${({ oc }) => oc};
-//   color: #F2F7F5;
-//   font-size: 16px;
-//   font-weight: 700;
-//   border-radius: 5px;
-//   margin: 5px;
-//   cursor: pointer;
-// `
-// const ModalFont = styled.div`
-//   width: ${({ wd }) => wd};
-//   height: ${({ hg }) => hg};
-//   font-size: ${({ fs }) => fs};
-//   /* font-weight: ${({ fw }) => fw}; */
-//   font-weight: 500;
-//   color : ${({ fc }) => fc};
-//   margin-top: ${({ mt }) => mt};
-//   margin-bottom: 5x;
-//   color: #D1D2D3;
-//   padding: 2px;
-// `
-// const ModalEmailFont = styled.div`
-//   width: ${({ wd }) => wd};
-//   height: ${({ hg }) => hg};
-//   font-size: ${({ fs }) => fs};
-//   font-weight: ${({ fw }) => fw};
-//   color : ${({ fc }) => fc};
-//   margin-top: ${({ mt }) => mt};
-//   margin-bottom: 5x;
-//   /* color: #D1D2D3; */
-//   padding: 2px;
-// `
-// const ModalInput = styled.input`
-//   width: ${({ wd }) => wd};
-//   height: ${({ hg }) => hg};
-//   border-radius: 5px;
-//   border: 1px solid #525357;
-//   background-color: #1B1D21;
-// `
 
 export default ProfileModalContent;
