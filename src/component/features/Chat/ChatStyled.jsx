@@ -8,23 +8,35 @@ const StContainer = styled.div`
     box-sizing: border-box;
 `;
 const StHeader = styled.div`
+    background-color: #222529;
     border-bottom: 0.01px solid #363636; 
-    color: whitesmoke ;
+    color: whitesmoke;
     padding: 16px 14px;
+    display: flex;
+    z-index: 1;
+    position: relative;
+    justify-content: start;
 
     h3 {
-    color: #D1D2D3;
-    font-weight: 800;
-    margin: 0px;
-    font-size: 18px;
-    margin-left: 252px;
+        color: #D1D2D3;
+        font-weight: 800;
+        margin: 0px;
+        font-size: 18px;
+    }
+`;
+
+const  StChatBoxContainer = styled.div`
+    height: 82%;
+    overflow: scroll;
+    &::-webkit-scrollbar {
+        display: none;
     }
 `;
 
 const Container = styled.div`
     width: 83%;
     height: 100%;
-    padding: 38px 13px;
+    padding: 20px 13px 38px 13px;
     box-sizing: border-box;
     position: absolute;
     gap: 16px;
@@ -39,12 +51,18 @@ const StChatContainer = styled.div`
     height: 82%;
     display: flex;
     flex-direction: column;
-    padding: 56px 0px;
+    padding: 0px 0px;
     box-sizing: border-box;
+    overflow: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
 const StChatbox = styled.div`
     display: flex;
     gap:12px;
+    padding-bottom: 32px;
+    box-sizing: border-box;
 `;
 const StProfile = styled.div`
     width: 26px;
@@ -63,7 +81,6 @@ const StName = styled.div`
 `;
 const StContent = styled.div`
     color: whitesmoke;
-    
 `;
 
 // 메시지 입력하는 박스
@@ -101,6 +118,7 @@ const StMsgBox = styled.label`
 `;
 const StInput = styled.input`
     background-color: #222529;
+    width: 100%;
     border: none;
     font-size: 16px;
     color: whitesmoke;
@@ -151,4 +169,5 @@ export {
     StName,
     StContent,
     StInput,
+    StChatBoxContainer,
 };

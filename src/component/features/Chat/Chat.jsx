@@ -22,9 +22,9 @@ import {
   StName,
   StContent,
   StInput,
+  StChatBoxContainer,
 } from './ChatStyled'
 import {BiBold, BiItalic, BiSend, BiStrikethrough, BiAt, BiSmile, BiLink, BiListOl, BiListUl, BiCodeAlt, BiMicrophone, BiCodeBlock, BiPlusCircle, BiVideo} from "react-icons/bi";
-import axios from 'axios';
 
 function Chat() {
   const client = useRef({}); // 속성 값이 변경되어도 재렌더링하지 않고, 다시 렌더링 하더라도 유실되지 않도록 클리이언트를 current속성에 만든다.
@@ -47,26 +47,28 @@ function Chat() {
         const msgData = JSON.parse(data.body);
         console.log("msgData: ", msgData);
 
-        setMessages([...messages, msgData]);
+        setMessages((prev) => [...prev, msgData]);
       });
       setStompClient(stompClient);
     });
     return () => {
-      //  stompClient.disconnect();
+      // stompClient.disconnect();
     }
   }, []);
+
   
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log("messages: ", messages);
+    console.log("messages typeof : ", typeof(messages));
     const username = 'testname'; // 질문
     const newMsg = {
       type: 'ENTER',
-      dmId: roomNum,
+      dmId: 1,
       username, 
       message: inputMsg,
       uuid:"uuid"
     }
+
     if(inputMsg) {
       stompClient.send('/app/chat/message', {}, JSON.stringify(newMsg));
       setInputMsg('');
@@ -75,10 +77,7 @@ function Chat() {
   // 메시지 배열에 추가!!
   return (
     <StContainer>
-      <StHeader>
-        <h3>다이렉트 메시지</h3>
-      </StHeader>
-
+    
       <StSideBarBox>
         <SideBar setRoomNum={setRoomNum} />
       </StSideBarBox>
@@ -88,15 +87,22 @@ function Chat() {
           ? 
           <Container>
             <StChatContainer>
-              <StChatbox>
-                <StProfile></StProfile>
-                <StNameMsgBox>
-                  <StName>송민진(항해99 12기 C반 담임매니저)</StName>
-                  <StContent>
-                    {messages.map((item)=><div key={item.username}>{item.message}</div>)}
-                  </StContent>
-                </StNameMsgBox>
-              </StChatbox>
+            <StHeader>
+              <h3>다이렉트 메시지</h3>
+            </StHeader>
+            <StChatBoxContainer>
+              {
+                messages.map((item)=> 
+                  <StChatbox>
+                    <StProfile></StProfile>
+                    <StNameMsgBox>
+                      <StName>{item.username}</StName>
+                      <StContent key={item.message}>{item.message}</StContent>
+                    </StNameMsgBox>
+                  </StChatbox>
+                )
+              }
+            </StChatBoxContainer>
             </StChatContainer>
             <StMsgContainer onSubmit={onSubmitHandler}>
               <StIconBox>
@@ -131,7 +137,7 @@ function Chat() {
                 <BiAt />
               </StLeft>
               <StSend>
-                <BiSend type='submit' />
+                <BiSend  type='submit'/>
               </StSend>
               </StIconBoxBottom>
             </StMsgContainer> 
