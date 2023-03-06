@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import * as Modal from '../Modal/ProfileModal'
 import { AiOutlineMail } from 'react-icons/ai'
 import ProfileModalContent from '../Modal/ProfileModalContent'
+import SearchModalContent from '../Modal/SearchModalContent'
 
 
 function Header() {
@@ -19,52 +20,10 @@ function Header() {
   return (
     <StContainer>
       <StSearchBox>
-        <h3>HangHae99 검색</h3>
+        <SearchModalContent />
       </StSearchBox>
       <StRightBox>
         <StIconHelp>?</StIconHelp>
-        {/* <Modal.Root>
-          <Modal.Trigger asChild>
-          <StProFile></StProFile>
-          </Modal.Trigger>
-          <Modal.Overlay />
-          <StModalContent>
-            <StWhatModal>
-              <ModalFont fs="24px" fw="900">내 프로필 편집</ModalFont>
-              <ProfileRowInput>
-                <ProfileRowBoxInput>
-                  <ModalFont fs="20px" mt="10px">성명</ModalFont>
-                  <ModalInput wd="300px" hg="35px" />
-                  <ModalFont fs="20px" mt="10px">별명</ModalFont>
-                  <ModalInput wd="300px" hg="35px" />
-                </ProfileRowBoxInput>
-                <ProfileRowBoxImage>
-                  <ModalFont fs="20px" mt="10px">프로필 사진</ModalFont>
-                  <ImageBox />
-                  <ImageInput type="file" ref={imageInput}/>
-                  <ImageButton onClick={onClickImageUpload}>프로필 업로드</ImageButton>
-                </ProfileRowBoxImage>
-              </ProfileRowInput>
-              <br />
-              <ProfileRowBoxInput>
-                <ModalFont fs="20px">연락처 정보</ModalFont>
-                <AddressBox>
-                  <OutlineMail />
-                  <div>
-                    <ModalFont fs="16px">이메일 주소</ModalFont>
-                    <ModalEmailFont fc="#1E88B6" hg="20px">Test@naver.com</ModalEmailFont>
-                  </div>
-                </AddressBox>
-              </ProfileRowBoxInput>
-            </StWhatModal>
-            <ModalButtonBox>
-              <Modal.Close asChild>
-                <ModalCloseButton bc="#1B1D21" oc="#525357">취소</ModalCloseButton>
-              </Modal.Close>
-                <ModalCloseButton bc="#007A5A" oc="#007A5A">변경사항 저장</ModalCloseButton>
-              </ModalButtonBox>
-          </StModalContent>
-        </Modal.Root> */}
         <ProfileModalContent />
       </StRightBox>
     </StContainer>
