@@ -30,6 +30,7 @@ const Container = styled.div`
     gap: 16px;
     top: 24px;
     right: 8px;
+    z-index: 0;
 `;
 
 // 채팅 리스트 
@@ -66,7 +67,7 @@ const StContent = styled.div`
 `;
 
 // 메시지 입력하는 박스
-const StMsgContainer = styled.div`
+const StMsgContainer = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: space-between;

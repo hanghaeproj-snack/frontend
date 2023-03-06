@@ -10,9 +10,6 @@ function WorkSpace() {
       <StHeaderBox>
         <Header />
       </StHeaderBox>
-      <StSideBarBox>
-        <SideBar />
-      </StSideBarBox>
       <StChatBox>
         <Chat />
       </StChatBox>
@@ -25,16 +22,6 @@ export default WorkSpace;
 const StHeaderBox = styled.div`
   position: relative;
   z-index: 1;
-`;
-
-const StSideBarBox = styled.div`
-  z-index: 1;
-  width: 16%;
-  height: 100vh;
-  padding: 0px;
-  box-sizing: border-box;
-  margin: 0;
-  position: fixed;
 `;
 
 const StChatBox = styled.div`
