@@ -21,10 +21,10 @@ const StRightBox = styled.div`
     align-items: center;
     gap: 16px;
 `;
-const StProFile = styled.button`
+const StProFile = styled.img`
     width: 26px;
     height: 26px;
-    background-color: whitesmoke;
+    cursor: pointer;
     border-radius: 4px;
 `;
 const StIconHelp = styled(AiOutlineQuestionCircle)`

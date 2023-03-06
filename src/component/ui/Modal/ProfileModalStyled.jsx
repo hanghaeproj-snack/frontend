@@ -37,10 +37,9 @@ const ProfileRowBoxImage = styled.div`
   width: 40%;
   margin: 0 auto;
 `;
-const ImageBox = styled.div`
+const ImageBox = styled.img`
   width: 100%;
   height: 230px;
-
   background-color: #7f56c3;
   margin: 0 auto;
   border-radius: 5px;
