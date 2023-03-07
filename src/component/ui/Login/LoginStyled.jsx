@@ -12,7 +12,7 @@ const FormContainer = styled.div`
 `;
 
 // 입력Container CSS
-const FormBox = styled.div`
+const FormBox = styled.form`
   display: flex;
   flex-direction: column;
   margin-top: 10px;
@@ -51,6 +51,7 @@ const FormButton = styled.button`
   font-weight: 500;
   border: 1px solid black;
   border-radius: 5px;
+  cursor: pointer;
   color: ${({ fc }) => fc};
   border: 3px solid ${({ fc }) => fc};
   background-color: ${({ bc }) => bc};
@@ -90,6 +91,20 @@ const Google = styled(FcGoogle)`
   margin-right: 5px;
 `;
 
+// 계정 생성 폰트
+const CreateFont = styled.div`
+  width: 410px;
+  margin: 0 auto;
+  text-align: center;
+  color: #1263A3;
+  cursor: pointer;
+  
+  :hover {
+    text-decoration: underline;
+    text-decoration-color: #1263A3;
+  }
+`
+
 export { FormContainer, 
           FormBox, 
           SlackFont, 
@@ -98,4 +113,5 @@ export { FormContainer,
           FormButton, 
           FormLine,
           Apple, 
-          Google}
+          Google,
+          CreateFont }
