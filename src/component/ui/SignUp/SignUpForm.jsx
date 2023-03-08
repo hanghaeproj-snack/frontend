@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import SlackLogo from "../../../asset/SlackLogo";
-import { postLogin, postSignUp } from "../../../axios/api";
+import { postSignUp } from "../../../axios/api";
 import { FormContainer, FormBox, SlackFont, SlackBold, FormInput, FormButton, FormLine,Apple, Google } from "./SignUpStyled"
 
 function SignUpForm() {
