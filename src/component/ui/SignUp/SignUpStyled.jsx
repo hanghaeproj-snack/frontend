@@ -12,7 +12,7 @@ const FormContainer = styled.div`
 `;
 
 // 입력Container CSS
-const FormBox = styled.div`
+const FormBox = styled.form`
   display: flex;
   flex-direction: column;
   margin-top: 10px;
@@ -51,6 +51,7 @@ const FormButton = styled.button`
   font-weight: 500;
   border: 1px solid black;
   border-radius: 5px;
+  cursor: pointer;
   color: ${({ fc }) => fc};
   border: 3px solid ${({ fc }) => fc};
   background-color: ${({ bc }) => bc};
@@ -59,7 +60,7 @@ const FormButton = styled.button`
 // -또는- CSS
 const FormLine = styled.div`
   display: flex;
-  flex-basis: 10%;
+  flex-basis: 5%;
   align-items: center;
   color: rgba(0, 0, 0, 0.35);
   font-size: 12px;
