@@ -1,4 +1,6 @@
 import React, { useRef, useState } from "react";
+import { useQuery } from "react-query";
+import { getProfile } from "../../../axios/api";
 import { StProFile } from "../Header/HeaderStyled";
 import * as Modal from "./ProfileModal";
 import {
@@ -22,6 +24,10 @@ import {
 
 function ProfileModalContent() {
 
+  // 프로필 정보 가져오기
+  const { userData } = useQuery('getProfile', getProfile);
+  // 이걸로 프로필 정보 채워주기
+  console.log(userData)
 
   // 파일 input타입 Ref
   const imageInput = useRef();
@@ -40,6 +46,7 @@ function ProfileModalContent() {
     if(event.target.files[0]) {
       // 업로드한 파일로 useState 업데이트하고 axios로 서버에 보내주기
       setImage(event.target.files[0])
+      
     } else {
       // 업로드를 안할 경우 기본으로 
       setImage('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png')

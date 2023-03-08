@@ -1,10 +1,21 @@
 import axios from "axios";
+import { getCookie } from "../cookies/cookies";
 
 const instance = axios.create({
-    baseURL: 'http://3.35.131.228:8080',
+    baseURL: `${process.env.REACT_APP_YUN_BASE_URL}`,
     withCredentials: true
 });
 
+// instance.interceptors.request.use(
+//   function(config) {
+//     console.log(config)
+    
+//     const token = getCookie('userCookie')
+//     if ( token ) {
+//       config.headers.authorization = token
+//     }
+//   }
+// )
 // 디엠 바 조회
 const getDMList = async () => {
     const response = await instance.get("/api/dm");
@@ -21,8 +32,7 @@ const getChannelList = async () => {
 
 // 회원가입
 const postSignUp = async (signUp) => {
-  console.log(signUp)
-  const response = await instance.post('/api/auth/signup', signUp);
+  const response = await instance.post('/api/auth/signup', signUp)
   console.log('signup', response.data)
   return response.data;
 }
@@ -30,12 +40,24 @@ const postSignUp = async (signUp) => {
 // 로그인
 const postLogin = async (login) => {
   const response = await instance.post('/api/auth/login', login);
-  // console.log('axios header', response.headers.authorization)
 
   const cookies = response.headers.authorization
-  console.log('cookies', cookies)
 
   return {reponse: response.data, cookies : cookies};
 }
 
-export { getDMList, getChannelList, postSignUp, postLogin };
+// 프로필 정보 get
+const getProfile = async () => {
+  const response = await instance.get('/api/user/profile')
+
+  return response.data;
+}
+
+// 프로필 수정 put
+const editProfile = async ( data ) => {
+  await instance.put('/api/user/profile', {
+    image : data,
+    nickname : data
+  })
+}
+export { getDMList, getChannelList, postSignUp, postLogin, getProfile };
