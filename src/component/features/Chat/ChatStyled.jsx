@@ -7,16 +7,19 @@ const StContainer = styled.div`
     height: 100%;
     margin-top: 45px;
     box-sizing: border-box;
+    display: flex;
 `;
 const StHeader = styled.div`
     background-color: #222529;
-    border-bottom: 0.01px solid #363636; 
-    color: whitesmoke;
+    border-bottom: 0.5px solid #363636; 
+    color: #D1D2D3;
     padding: 16px 14px;
     display: flex;
     z-index: 1;
-    position: relative;
+    position: absolute;
+    width: 100%;
     justify-content: start;
+    top: 1px;
 
     h3 {
         color: #D1D2D3;
@@ -28,22 +31,32 @@ const StHeader = styled.div`
 
 const  StChatBoxContainer = styled.div`
     height: 82%;
-    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: scroll;
     &::-webkit-scrollbar {
         display: none;
+    }
+    &::-webkit-scrollbar-thumb{
+        color: red
+    }
+    &::-webkit-scrollbar-track{
+        color: green;
     }
 `;
 
 const Container = styled.div`
-    width: 83%;
+    width: 84%;
     height: 100%;
     padding: 20px 13px 38px 13px;
     box-sizing: border-box;
     position: absolute;
     gap: 16px;
     top: 24px;
-    right: 8px;
-    z-index: 0;
+    right: 0px;
+    /* z-index: 0; */
+    @media screen and (max-width:800px) {
+        width: 100%;
+    }
 `;
 
 // 채팅 리스트 
@@ -54,7 +67,9 @@ const StChatContainer = styled.div`
     flex-direction: column;
     padding: 0px 0px;
     box-sizing: border-box;
-    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: scroll;
+    position: relative;
     &::-webkit-scrollbar {
         display: none;
     }

@@ -36,11 +36,12 @@ function Chat() {
   const [inputMsg, setInputMsg] = useState("");
   const [stompClient, setStompClient] = useState(null);
   const [isCheck, setIsCheck] = useState(false); 
+  const [uuid, setUuid] = useState("");
 
   const [roomNum, setRoomNum] = useState();
 
   useEffect(()=>{
-    const socket = new SockJS('http://3.36.51.159:8080/stomp/chat');
+    const socket = new SockJS(`${process.env.REACT_APP_URL}/stomp/chat`);
     const stompClient = Stomp.over(socket);
 
     stompClient.connect({}, () => {
@@ -48,9 +49,10 @@ function Chat() {
       stompClient.subscribe(`/topic/dm/message/${roomNum}`, (data) => {
 
         const msgData = JSON.parse(data.body);
-        // console.log("msgData: ", msgData);
+        console.log("msgData: ", msgData);
 
         setMessages((prev) => [...prev, msgData]);
+        // setUuid()
       },
       (err) => {}
       );
@@ -71,7 +73,7 @@ function Chat() {
     const username = localStorage.getItem('nickname'); 
     const newMsg = {
       type: 'ENTER',
-      dmId: 1,
+      dmId: roomNum,
       username, 
       message: inputMsg,
       uuid:"uuid"
@@ -102,22 +104,22 @@ function Chat() {
           ? 
           <Container>
             <StChatContainer>
-            <StHeader>
-              <h3>다이렉트 메시지</h3>
-            </StHeader>
-            <StChatBoxContainer>
-              {
-                messages.map((item)=> 
-                  <StChatbox>
-                    <StProfile></StProfile>
-                    <StNameMsgBox>
-                      <StName>{item.username}</StName>
-                      <StContent key={item.message}>{item.message}</StContent>
-                    </StNameMsgBox>
-                  </StChatbox>
-                )
-              }
-            </StChatBoxContainer>
+              <StHeader>
+                <h3>다이렉트 메시지</h3>
+              </StHeader>
+              <StChatBoxContainer>
+                {
+                  messages.map((item)=> 
+                    <StChatbox>
+                      <StProfile></StProfile>
+                      <StNameMsgBox>
+                        <StName>{item.username}</StName>
+                        <StContent key={item.message}>{item.message}</StContent>
+                      </StNameMsgBox>
+                    </StChatbox>
+                  )
+                }
+              </StChatBoxContainer>
             </StChatContainer>
             <StMsgContainer onSubmit={onSubmitHandler}>
               <StIconBox>
@@ -184,13 +186,16 @@ export default Chat;
 // StProfile -> 프로필 이미지 
 
 const StSideBarBox = styled.div`
-  z-index: 1;
+  /* z-index: 1; */
   width: 16%;
-  height: 100vh;
+  /* height: 100vh;
   padding: 0px;
   box-sizing: border-box;
   margin: 0;
   position: fixed;
-  top: 45px;
-  min-width: 168px;
+  top: 45px; */
+  /* min-width: 168px;  */
+  @media screen and (max-width:800px) {
+    display: none;
+  }
 `;

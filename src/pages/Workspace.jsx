@@ -5,18 +5,23 @@ import styled from 'styled-components';
 
 function WorkSpace() {
   return (
-    <>
+    <StContainer>
       <StHeaderBox>
         <Header />
       </StHeaderBox>
       <StChatBox>
         <Chat />
       </StChatBox>
-    </>
+    </StContainer>
   )
 }
 
 export default WorkSpace;
+
+const StContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
 const StHeaderBox = styled.div`
   position: relative;
