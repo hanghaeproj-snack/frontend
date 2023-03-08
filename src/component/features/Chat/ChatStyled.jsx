@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {IoIosArrowDown} from "react-icons/io";
 
 const StContainer = styled.div`
     background-color: #222529;
@@ -149,6 +150,42 @@ const StSend = styled.div`
     padding-right: 5px;
     font-size: 18px;
     cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    
+    h3 {
+        margin: 0;
+        font-weight: 200;
+        font-size: 18px;
+    }
+`;
+const StSendTrue = styled.div`
+    color: #5b5e5f;
+    padding-right: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #007A5A;
+    color: whitesmoke;
+    padding: 3px 8px;
+    border-radius: 3px;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+
+    h3 {
+        margin: 0;
+        font-weight: 200;
+        font-size: 18px;
+    }
+`;
+const StSendIcon = styled(IoIosArrowDown)`
+    font-size: 14px;
 `;
 
 
@@ -170,4 +207,6 @@ export {
     StContent,
     StInput,
     StChatBoxContainer,
+    StSendTrue,
+    StSendIcon,
 };
