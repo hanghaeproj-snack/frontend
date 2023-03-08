@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import SlackLogo from "../../../asset/SlackLogo";
@@ -18,13 +19,19 @@ function LoginForm() {
   // 로그인 데이터 상태값
   const [ userLogin, setUserLogin ] = useState(initialState);
 
+  // 쿠키 상태값
+  const [ cookies, setCookies ] = useCookies(['userCookie']) 
 
   // 로그인 api 통신
   const { mutate } = useMutation(postLogin, {
-    onSuccess : () => {
+    onSuccess : (response) => {
+      console.log('login', response.reponse)
+      localStorage.setItem('email', response.reponse.email)
+      localStorage.setItem('nickName', response.reponse.nickname)
+      setCookies('userCookie', response.cookies)
       alert('로그인이 완료되었습니다.');
       // 로그인 성공 후 workspace(메인페이지)로 이동
-      navigator('/workspace')
+      navi('/workspace')
     },
     onError : () => {
       alert('로그인을 실패하였습니다.')
@@ -44,7 +51,7 @@ function LoginForm() {
   // 로그인 submit Handler
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log('email:', userLogin.email, 'password :', userLogin.password)
+  
     
     if ((userLogin.email === '' || userLogin.password === '')) {
       alert('빈칸없이 채워주세요.')

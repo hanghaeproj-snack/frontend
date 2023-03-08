@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 import SlackLogo from "../../../asset/SlackLogo";
 import { postLogin, postSignUp } from "../../../axios/api";
 import { FormContainer, FormBox, SlackFont, SlackBold, FormInput, FormButton, FormLine,Apple, Google } from "./SignUpStyled"
 
 function SignUpForm() {
+
+  const navi = useNavigate();
 
   // 회원가입 초기 데이터값
   const initialState = {
@@ -24,11 +27,10 @@ function SignUpForm() {
     onSuccess : () => {
       alert('회원가입이 완료되었습니다.');
       // 회원가입 완료 후 로그인페이지로 이동시키기
-      navigator('/')
+      navi('/')
     },
     onError : (error) => {
-      alert('회원가입을 실패하였습니다');
-      console.log('error', error)
+      alert('회원가입을 실패하였습니다.');
       // 회원가입 에러 분기처리
     }
   })
@@ -110,7 +112,7 @@ function SignUpForm() {
           type="password"
           value={user.passwordCheck}
           onChange={onInputChange}/>
-        <FormButton bc="#4A154B" fc="white">
+        <FormButton bc="#4A154B" fc="white" type='submit'>
           회원가입
         </FormButton>
       </FormBox>
