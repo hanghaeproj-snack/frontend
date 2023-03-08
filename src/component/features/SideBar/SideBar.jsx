@@ -12,7 +12,7 @@ import {
   StTitleDm,
 } from './SideBarStyled';
 
-function SideBar() {
+function SideBar({setRoomNum}) {
 
   return (
     <StContainer>
@@ -32,11 +32,10 @@ function SideBar() {
         <StTitleDm>
           <h3>다이렉트 메시지</h3>
         </StTitleDm>
-        <DmList />
+        <DmList setRoomNum={setRoomNum} />
       </StDmBox>
     </StContainer>
   )
 }
 
 export default SideBar;
-

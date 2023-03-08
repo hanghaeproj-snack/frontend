@@ -46,6 +46,11 @@ const StTitle = styled.div`
     color: whitesmoke;
     font-size: 14px;
     cursor: pointer;
+    display: inline-block;
+    width: 200px;
+    white-space: nowrap; // 연속된 스페이스 또는 탭 병합, 줄바꿈 병합, 자동 줄바꿈x 
+    overflow: hidden;
+    text-overflow: ellipsis;
     }
 `;
 
