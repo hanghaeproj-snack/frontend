@@ -50,7 +50,7 @@ function SignUpForm() {
   // 회원가입 form handler
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log('email:', user.email, 'name :', user.nickname, 'password :', user.password)
+    // console.log('email:', user.email, 'name :', user.nickname, 'password :', user.password)
 
     // 이메일 정규식
     const emailVal = new RegExp('^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$');

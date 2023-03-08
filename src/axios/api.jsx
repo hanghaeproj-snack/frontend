@@ -6,20 +6,22 @@ const instance = axios.create({
     withCredentials: true
 });
 
-// instance.interceptors.request.use(
-//   function(config) {
-//     console.log(config)
+instance.interceptors.request.use(
+  function(config) {
+    console.log(config)
     
-//     const token = getCookie('userCookie')
-//     if ( token ) {
-//       config.headers.authorization = token
-//     }
-//   }
-// )
+    const token = getCookie('userCookie')
+    if ( token ) {
+      config.headers.authorization = token
+    }
+    return config;
+  }
+)
+
 // 디엠 바 조회
 const getDMList = async () => {
     const response = await instance.get("/api/dm");
-    console.log('dm response', response)
+    // console.log('dm response', response);
     return response.data;
 };
 
@@ -29,6 +31,13 @@ const getChannelList = async () => {
     console.log('channel response', response)
     return response.data;
 };
+
+// 이전 대화 불러오기
+const getPrevChat = async (dmId) => {
+  const response = await instance.get('/api/dm', {param:{id:dmId}});
+  console.log("response", response);
+  return response.data;
+}
 
 // 회원가입
 const postSignUp = async (signUp) => {
@@ -60,4 +69,4 @@ const editProfile = async ( data ) => {
     nickname : data
   })
 }
-export { getDMList, getChannelList, postSignUp, postLogin, getProfile };
+export { getDMList, getChannelList, postSignUp, postLogin, getProfile, getPrevChat };

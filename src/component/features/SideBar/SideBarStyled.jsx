@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {IoIosArrowDown} from "react-icons/io";
+import {VscTriangleDown, VscTriangleUp} from "react-icons/vsc";
 
 const StContainer = styled.div`
     width: 100%;
@@ -33,30 +34,42 @@ const StChannel = styled.div`
     padding: 6px 14px;
 `;
 
-const StTitleDm = styled.div`
+const StTitleChDm = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #949497;
+    font-size: 12px;
+
     h3{
-    color: whitesmoke;
-    font-size: 14px;
-    cursor: pointer;
+        color: #949497;
+        font-size: 16px;
+        font-weight: 400;
+        cursor: pointer;
     }
+`;
+const StIconToggleOpen = styled(VscTriangleDown)`
+    cursor: pointer;
+`;
+const StIconToggleClose = styled(VscTriangleUp)`
+    cursor: pointer;
 `;
 
 const StTitle = styled.div`
-    h3{
-    color: whitesmoke;
+    color: #D1D2D3;
     font-size: 14px;
     cursor: pointer;
     display: inline-block;
-    width: 200px;
+    width: 100%;
     white-space: nowrap; // 연속된 스페이스 또는 탭 병합, 줄바꿈 병합, 자동 줄바꿈x 
     overflow: hidden;
     text-overflow: ellipsis;
-    }
 `;
 
 const StDmBox = styled.div`
     padding: 6px 14px;
-    
+`;
+const StTitleBox = styled.div`
 `;
 
 export {
@@ -67,5 +80,8 @@ export {
     StChannel,
     StTitle,
     StDmBox,
-    StTitleDm
+    StTitleChDm,
+    StIconToggleOpen,
+    StIconToggleClose,
+    StTitleBox,
 }

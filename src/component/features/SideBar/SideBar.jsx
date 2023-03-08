@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ChannelList from './ChannelList';
 import DmList from './DmList';
 import { 
@@ -7,12 +7,24 @@ import {
   StDmBox, 
   StHeader, 
   StIconArrow,
+  StIconToggleOpen,
+  StIconToggleClose,
   StName, 
-  StTitle,
-  StTitleDm,
+  StTitleChDm,
+  StTitleBox,
 } from './SideBarStyled';
 
 function SideBar({setRoomNum}) {
+  const [toggleCh, setToggleCh] = useState(false);
+  const [toggleDm, setToggleDm] = useState(false);
+
+
+  const onClickToggleChHandler = () => {
+    setToggleCh(!toggleCh);
+  }
+  const onClickToggleDmHandler = () => {
+    setToggleDm(!toggleDm);
+  }
 
   return (
     <StContainer>
@@ -22,17 +34,47 @@ function SideBar({setRoomNum}) {
       </StHeader>
 
       <StChannel>
-        <StTitle>
-          <h3>채널</h3>
-          </StTitle>
-        <ChannelList />
+        <StTitleBox>
+          {
+            toggleCh
+              ? 
+                <>
+                  <StTitleChDm onClick={onClickToggleChHandler}>
+                    <StIconToggleOpen />
+                    <h3>채널</h3>
+                  </StTitleChDm>
+                  <ChannelList />
+
+                </>
+              :  
+                <StTitleChDm onClick={onClickToggleChHandler}>
+                  <StIconToggleClose />
+                  <h3>채널</h3>
+                </StTitleChDm>
+          }
+        </StTitleBox>
       </StChannel>
 
       <StDmBox>
-        <StTitleDm>
-          <h3>다이렉트 메시지</h3>
-        </StTitleDm>
-        <DmList setRoomNum={setRoomNum} />
+        <StTitleBox>
+          {
+            toggleDm
+              ? 
+                <>
+                  <StTitleChDm onClick={onClickToggleDmHandler}>
+                    <StIconToggleOpen />
+                    <h3>다이렉트 메시지</h3>
+                  </StTitleChDm>
+                  <DmList setRoomNum={setRoomNum} />
+
+                </>
+              :  
+                <StTitleChDm onClick={onClickToggleDmHandler}>
+                  <StIconToggleClose />
+                  <h3>다이렉트 메시지</h3>
+                </StTitleChDm>
+          }
+        </StTitleBox>
       </StDmBox>
     </StContainer>
   )
