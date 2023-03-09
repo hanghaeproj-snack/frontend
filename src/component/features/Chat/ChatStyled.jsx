@@ -30,7 +30,7 @@ const StHeader = styled.div`
 `;
 
 const  StChatBoxContainer = styled.div`
-    height: 82%;
+    height: 100%;
     overflow-x: auto;
     overflow-y: scroll;
     &::-webkit-scrollbar {
@@ -66,6 +66,7 @@ const StChatContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding: 0px 0px;
+    margin:0;
     box-sizing: border-box;
     overflow-x: auto;
     overflow-y: scroll;
@@ -85,6 +86,11 @@ const StProfile = styled.div`
     height: 26px;
     background-color: whitesmoke;
     border-radius: 4px;
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+    }
 `;
 const StNameMsgBox = styled.div`
     display: flex;

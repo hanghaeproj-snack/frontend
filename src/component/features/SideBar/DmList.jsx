@@ -1,29 +1,34 @@
-import React from 'react';
-import { useQuery } from 'react-query';
+import React, { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getDMList, getPrevChat } from '../../../axios/api';
 import { StTitle } from './SideBarStyled';
 import styled from 'styled-components';
 
-function DmList({setRoomNum}) {
+function DmList({roomNumber}) {
   const {isLoading, isError, data} = useQuery("listDm", getDMList);
-  const {isLoading:isLoadingChat, isError:isErrorChat, data:dataChat} = useQuery("chat", getPrevChat(data.uuid));
-  
-  // console.log("dataChat", dataChat);
-  console.log("data", data);
+  // console.log("data", data);
 
-  if(isLoading) return <h3>Loading...</h3>
-  if(isError) return <h3>Error...</h3>
+  if(isLoading ) return <h3>Loading...</h3>
+  if(isError ) return <h3>Error...</h3>
+
+  const onClickRoom = async (id, uuid) => {
+    const prevChatData = await getPrevChat(id); 
+    // console.log("prevChatData",prevChatData);
+    const arr = prevChatData.map((item)=>item);
+    console.log("chatData: ", arr);
+    roomNumber(id, uuid, true, arr);
+  }
 
   return (
-    <>
+    <StBox>
     {
         data.map((item)=>{
-          return <StContainer>
+          return <StContainer key={item.id}>
           <StImg src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' />
           <StState></StState>
           <StTitle
             key={item.id} 
-            onClick={()=>setRoomNum(item.id)}
+            onClick={()=>{return onClickRoom(item.id, item.uuid)}}
             >{item.title}
           </StTitle>
         </StContainer>
@@ -31,13 +36,19 @@ function DmList({setRoomNum}) {
         
     }
       
-    </>
+    </StBox>
   )
 }
 
 export default DmList
 
 // sidebar에서 방을 클릭하면 방의 채팅룸 연결
+
+const StBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap:12px;
+`;
 
 const StContainer = styled.div`
   display: flex;

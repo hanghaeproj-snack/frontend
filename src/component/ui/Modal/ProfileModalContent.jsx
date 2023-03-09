@@ -25,15 +25,10 @@ import {
 function ProfileModalContent() {
 
   // 프로필 정보 가져오기
-  const { data : userData } = useQuery('getProfileKey', getProfile, {
-    staleTime : 30000
-  })
-  console.log('userData', userData)
+  // const { userData } = useQuery('getProfile', getProfile);
+  // // 이걸로 프로필 정보 채워주기
+  // console.log(userData)
 
-  // 프로필 사진 useState
-  const [image, setImage] = useState(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-  );
 
   // 파일 input타입 Ref
   const imageInput = useRef();

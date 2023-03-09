@@ -65,7 +65,7 @@ function SideBar({setRoomNum}) {
                     <StIconToggleOpen />
                     <h3>다이렉트 메시지</h3>
                   </StTitleChDm>
-                  <DmList setRoomNum={setRoomNum} />
+                  <DmList roomNumber={setRoomNum} />
 
                 </>
               :  

@@ -27,60 +27,66 @@ import {
   StSendIcon,
 } from './ChatStyled'
 import {BiBold, BiItalic, BiSend, BiStrikethrough, BiAt, BiSmile, BiLink, BiListOl, BiListUl, BiCodeAlt, BiMicrophone, BiCodeBlock, BiPlusCircle, BiVideo} from "react-icons/bi";
+import { getCookie } from '../../../cookies/cookies';
 
 function Chat() {
   // const client = useRef({}); // 속성 값이 변경되어도 재렌더링하지 않고, 다시 렌더링 하더라도 유실되지 않도록 클리이언트를 current속성에 만든다.
-  
-  const [isChat, setIsChat] = useState(true);  // 초깃값: 메인화면(false), 채팅시작(true) - 방을 클릭했을 때 변경
+  const scrollRef = useRef();
+
+  const [isChat, setIsChat] = useState(false);  // 초깃값: 메인화면(false), 채팅시작(true) - 방을 클릭했을 때 변경
   const [messages, setMessages] = useState([]);  // 화면에 표시될 채팅 기록
   const [inputMsg, setInputMsg] = useState("");
   const [stompClient, setStompClient] = useState(null);
   const [isCheck, setIsCheck] = useState(false); 
-  const [uuid, setUuid] = useState("");
 
   const [roomNum, setRoomNum] = useState();
+  const [uuid, setUuid] = useState();
 
   useEffect(()=>{
     const socket = new SockJS(`${process.env.REACT_APP_URL}/stomp/chat`);
     const stompClient = Stomp.over(socket);
 
+    const thisHeader = { Authorization : getCookie('userCookie')};
+    // console.log(thisHeader);
+
     stompClient.connect({}, () => {
       console.log("connected");
-      stompClient.subscribe(`/topic/dm/message/${roomNum}`, (data) => {
-
+      console.log('uuid: ', uuid);
+      stompClient.subscribe(`/sub/topic/dm/message/${uuid}`, (data) => {
         const msgData = JSON.parse(data.body);
         console.log("msgData: ", msgData);
 
         setMessages((prev) => [...prev, msgData]);
-        // setUuid()
       },
-      (err) => {}
+      thisHeader,
       );
       setStompClient(stompClient);
     });
-    return () => {
+    // return () => {
       // stompClient.disconnect();
-    }
-  }, []);
+    // }
+  }, [roomNum]);
   
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
+    // console.log('roomnumber: ',roomNum);
     // if(!stompClient.current.connected) return;  // 연결이 끊겼을 때
-
-    // console.log("messages typeof : ", typeof(messages));
-    // const username = 'testname'; // 질문
-    const username = localStorage.getItem('nickname'); 
+    const username = localStorage.getItem('nickName'); 
+    const email = localStorage.getItem('email');
     const newMsg = {
-      type: 'ENTER',
       dmId: roomNum,
-      username, 
+      nickname:username, 
       message: inputMsg,
-      uuid:"uuid"
+      uuid,
+      email,
     }
-
+    // console.log("userCookie: ",getCookie('userCookie'));
     if(inputMsg) {
-      stompClient.send('/app/chat/message', {}, JSON.stringify(newMsg));
+      stompClient.send('/app/chat/message', {
+        Authorization: getCookie('userCookie')
+      }
+      , JSON.stringify(newMsg));
       setInputMsg('');
     }
   }
@@ -94,10 +100,25 @@ function Chat() {
     else setIsCheck(()=>true);
   },[inputMsg]);
 
+  // scroll to bottom
+  const scrollToBottom = () => {
+    if(scrollRef.current){
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }
+  useEffect(()=>{
+    scrollToBottom();
+  },[messages]);
+
   return (
     <StContainer>
       <StSideBarBox>
-        <SideBar setRoomNum={setRoomNum} />
+        <SideBar setRoomNum={(e, i, v, arr)=>{
+          setRoomNum(e)
+          setUuid(i)
+          setIsChat(v)
+          setMessages(arr);
+        }} />
       </StSideBarBox>
       {
         isChat 
@@ -107,14 +128,16 @@ function Chat() {
               <StHeader>
                 <h3>다이렉트 메시지</h3>
               </StHeader>
-              <StChatBoxContainer>
+              <StChatBoxContainer ref={scrollRef}>
                 {
                   messages.map((item)=> 
                     <StChatbox>
-                      <StProfile></StProfile>
+                      <StProfile>
+                        <img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'/>
+                      </StProfile>
                       <StNameMsgBox>
-                        <StName>{item.username}</StName>
-                        <StContent key={item.message}>{item.message}</StContent>
+                        <StName>{item.nickname}</StName>
+                        <StContent key={item.id}>{item.message}</StContent>
                       </StNameMsgBox>
                     </StChatbox>
                   )
@@ -140,7 +163,7 @@ function Chat() {
                   value={inputMsg}
                   onChange={onChangeInputHandler}
                   name='msg'
-                  placeholder='_12기_공지방에게 메시지 보내기' 
+                  placeholder="메시지 보내기"
                 />
               </StMsgBox>
               <StIconBoxBottom>
@@ -172,7 +195,6 @@ function Chat() {
             </StMsgContainer> 
           </Container>
           : null
-
       }
     </StContainer>
   )
@@ -180,21 +202,8 @@ function Chat() {
 
 export default Chat;
 
-// 메시지 보낼 때(input에 입력) StSend버튼 활성화(style주기)
-// StChatBox -> get요청으로 받은 메시지 리스트 중 하나
-// StNameMsgBox -> 작성자이름(StName), 내용(StContent) 포함
-// StProfile -> 프로필 이미지 
-
 const StSideBarBox = styled.div`
-  /* z-index: 1; */
   width: 16%;
-  /* height: 100vh;
-  padding: 0px;
-  box-sizing: border-box;
-  margin: 0;
-  position: fixed;
-  top: 45px; */
-  /* min-width: 168px;  */
   @media screen and (max-width:800px) {
     display: none;
   }
