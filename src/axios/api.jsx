@@ -64,7 +64,7 @@ const getProfile = async () => {
 
 // 프로필 수정 put
 const editProfile = async ( data ) => {
-  await instance.put('/api/user/profile', {
+  await instance.patch('/api/user/profile', {
     image : data,
     nickname : data
   })

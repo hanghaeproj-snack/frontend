@@ -130,6 +130,8 @@ const ModalInput = styled.input`
   border-radius: 5px;
   border: 1px solid #525357;
   background-color: #1b1d21;
+  color: #D1D2D3;
+  font-size: 18px;
 `;
 export {
   StModalContent,

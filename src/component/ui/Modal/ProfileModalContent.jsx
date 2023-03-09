@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
-import { useQuery } from "react-query";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getProfile } from "../../../axios/api";
 import { StProFile } from "../Header/HeaderStyled";
 import * as Modal from "./ProfileModal";
@@ -21,45 +22,48 @@ import {
   ModalInput,
 } from "./ProfileModalStyled";
 
-
 function ProfileModalContent() {
 
   // 프로필 정보 가져오기
-  const { userData } = useQuery('getProfile', getProfile);
-  // 이걸로 프로필 정보 채워주기
-  console.log(userData)
+  const { data : userData } = useQuery('getProfileKey', getProfile, {
+    staleTime : 30000
+  })
+  console.log('userData', userData)
+
+  // 프로필 사진 useState
+  const [image, setImage] = useState(
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+  );
 
   // 파일 input타입 Ref
   const imageInput = useRef();
 
-  // 프로필 사진 useState
-  const [ image, setImage ] = useState('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png')
-  
   // 버튼 클릭시 input타입으로 클릭 포커스 => 버튼으로 UI커스텀
   const onClickImageUpload = () => {
     imageInput.current.click();
   };
 
   // 파일 업로드 함수
-  const onImageChange = (event) => {
-    console.log(event.target.files[0])
-    if(event.target.files[0]) {
+  const onChangeHandler = (event) => {
+    console.log(event.target.files[0]);
+    if (event.target.files[0]) {
       // 업로드한 파일로 useState 업데이트하고 axios로 서버에 보내주기
-      setImage(event.target.files[0])
-      
+      setImage(event.target.files[0]);
     } else {
-      // 업로드를 안할 경우 기본으로 
-      setImage('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png')
+      // 업로드를 안할 경우 기본으로
+      setImage(
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+      );
     }
     // 화면에 업로드한 프로필 사진 표시
     const imageReader = new FileReader();
     imageReader.onload = () => {
-      if(imageReader.readyState === 2) {
-        setImage(imageReader.result)
+      if (imageReader.readyState === 2) {
+        setImage(imageReader.result);
       }
-    }
-    imageReader.readAsDataURL(event.target.files[0])
-  }
+    };
+    imageReader.readAsDataURL(event.target.files[0]);
+  };
   return (
     <Modal.Root>
       <Modal.Trigger asChild>
@@ -76,22 +80,27 @@ function ProfileModalContent() {
               <ModalFont fs="20px" mt="10px">
                 성명
               </ModalFont>
-              <ModalInput wd="300px" hg="35px" />
-              <ModalFont fs="20px" mt="10px">
-                별명
-              </ModalFont>
-              <ModalInput wd="300px" hg="35px" />
+              <ModalInput
+                wd="300px"
+                hg="35px"
+                name="email"
+                type="text"
+                value={userData.nickname}
+                onChange={onChangeHandler}
+              />
             </ProfileRowBoxInput>
             <ProfileRowBoxImage>
               <ModalFont fs="20px" mt="10px">
                 프로필 사진
               </ModalFont>
-              <ImageBox src={image}/>
-              <ImageInput 
-                type="file" 
+              <ImageBox src={image} />
+              <ImageInput
+                type="file"
                 ref={imageInput}
-                acccept='image/*'
-                onChange={onImageChange}/>
+                acccept="image/*"
+                name="image"
+                onChange={onChangeHandler}
+              />
               <ImageButton onClick={onClickImageUpload}>
                 프로필 업로드
               </ImageButton>
@@ -105,7 +114,7 @@ function ProfileModalContent() {
               <div>
                 <ModalFont fs="16px">이메일 주소</ModalFont>
                 <ModalEmailFont fc="#1E88B6" hg="20px">
-                  Test@naver.com
+                  {userData.email}
                 </ModalEmailFont>
               </div>
             </AddressBox>
@@ -125,6 +134,5 @@ function ProfileModalContent() {
     </Modal.Root>
   );
 }
-
 
 export default ProfileModalContent;
