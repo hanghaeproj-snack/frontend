@@ -2,13 +2,13 @@ import axios from "axios";
 import { getCookie } from "../cookies/cookies";
 
 const instance = axios.create({
-    baseURL: `${process.env.REACT_APP_YUN_BASE_URL}`,
+    baseURL: `${process.env.REACT_APP_URL}`,
     withCredentials: true
 });
 
 instance.interceptors.request.use(
   function(config) {
-    console.log(config)
+    // console.log(config)
     
     const token = getCookie('userCookie')
     if ( token ) {

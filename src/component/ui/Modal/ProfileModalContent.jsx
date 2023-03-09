@@ -25,9 +25,9 @@ import {
 function ProfileModalContent() {
 
   // 프로필 정보 가져오기
-  const { userData } = useQuery('getProfile', getProfile);
-  // 이걸로 프로필 정보 채워주기
-  console.log(userData)
+  // const { userData } = useQuery('getProfile', getProfile);
+  // // 이걸로 프로필 정보 채워주기
+  // console.log(userData)
 
   // 파일 input타입 Ref
   const imageInput = useRef();
