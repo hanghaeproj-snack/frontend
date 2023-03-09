@@ -70,7 +70,6 @@ function Chat() {
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
-    // console.log('roomnumber: ',roomNum);
     // if(!stompClient.current.connected) return;  // 연결이 끊겼을 때
     const username = localStorage.getItem('nickName'); 
     const email = localStorage.getItem('email');
@@ -131,6 +130,18 @@ function Chat() {
               <StChatBoxContainer ref={scrollRef}>
                 {
                   messages.map((item)=> 
+                  item.image 
+                    ?
+                    <StChatbox>
+                      <StProfile>
+                        <img src={item.image}/>
+                      </StProfile>
+                      <StNameMsgBox>
+                        <StName>{item.nickname}</StName>
+                        <StContent key={item.id}>{item.message}</StContent>
+                      </StNameMsgBox>
+                    </StChatbox>
+                    :
                     <StChatbox>
                       <StProfile>
                         <img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'/>
