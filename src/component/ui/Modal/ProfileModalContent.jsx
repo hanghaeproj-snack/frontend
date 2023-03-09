@@ -25,9 +25,9 @@ import {
 function ProfileModalContent() {
 
   // 프로필 정보 가져오기
-  // const { userData } = useQuery('getProfile', getProfile);
-  // // 이걸로 프로필 정보 채워주기
-  // console.log(userData)
+  const { data : userData } = useQuery('getProfile', getProfile);
+  // 이걸로 프로필 정보 채워주기
+  console.log(userData)
 
 
   // 파일 input타입 Ref
@@ -38,6 +38,8 @@ function ProfileModalContent() {
     imageInput.current.click();
   };
 
+  // 이미지 변수
+  const [ image, setImage] = useState('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png');
   // 파일 업로드 함수
   const onChangeHandler = (event) => {
     console.log(event.target.files[0]);
@@ -80,7 +82,7 @@ function ProfileModalContent() {
                 hg="35px"
                 name="email"
                 type="text"
-                value={userData.nickname}
+                // value={userData.nickname}
                 onChange={onChangeHandler}
               />
             </ProfileRowBoxInput>
@@ -109,7 +111,7 @@ function ProfileModalContent() {
               <div>
                 <ModalFont fs="16px">이메일 주소</ModalFont>
                 <ModalEmailFont fc="#1E88B6" hg="20px">
-                  {userData.email}
+                  test@test.com
                 </ModalEmailFont>
               </div>
             </AddressBox>
