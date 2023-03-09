@@ -65,14 +65,13 @@ function Chat() {
     // return () => {
       // stompClient.disconnect();
     // }
-  }, []);
+  }, [roomNum]);
   
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log('roomnumber: ',roomNum);
+
+    // console.log('roomnumber: ',roomNum);
     // if(!stompClient.current.connected) return;  // 연결이 끊겼을 때
-    console.log('uuid: ', uuid);
-    // console.log("messages typeof : ", typeof(messages));
     const username = localStorage.getItem('nickName'); 
     const email = localStorage.getItem('email');
     const newMsg = {
@@ -114,10 +113,11 @@ function Chat() {
   return (
     <StContainer>
       <StSideBarBox>
-        <SideBar setRoomNum={(e, i,v)=>{
+        <SideBar setRoomNum={(e, i, v, arr)=>{
           setRoomNum(e)
           setUuid(i)
           setIsChat(v)
+          setMessages(arr);
         }} />
       </StSideBarBox>
       {
@@ -132,7 +132,9 @@ function Chat() {
                 {
                   messages.map((item)=> 
                     <StChatbox>
-                      <StProfile></StProfile>
+                      <StProfile>
+                        <img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'/>
+                      </StProfile>
                       <StNameMsgBox>
                         <StName>{item.nickname}</StName>
                         <StContent key={item.id}>{item.message}</StContent>
@@ -193,7 +195,6 @@ function Chat() {
             </StMsgContainer> 
           </Container>
           : null
-
       }
     </StContainer>
   )
@@ -201,21 +202,8 @@ function Chat() {
 
 export default Chat;
 
-// 메시지 보낼 때(input에 입력) StSend버튼 활성화(style주기)
-// StChatBox -> get요청으로 받은 메시지 리스트 중 하나
-// StNameMsgBox -> 작성자이름(StName), 내용(StContent) 포함
-// StProfile -> 프로필 이미지 
-
 const StSideBarBox = styled.div`
-  /* z-index: 1; */
   width: 16%;
-  /* height: 100vh;
-  padding: 0px;
-  box-sizing: border-box;
-  margin: 0;
-  position: fixed;
-  top: 45px; */
-  /* min-width: 168px;  */
   @media screen and (max-width:800px) {
     display: none;
   }

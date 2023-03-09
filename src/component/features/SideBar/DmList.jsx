@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getDMList, getPrevChat } from '../../../axios/api';
 import { StTitle } from './SideBarStyled';
 import styled from 'styled-components';
@@ -8,8 +8,16 @@ function DmList({roomNumber}) {
   const {isLoading, isError, data} = useQuery("listDm", getDMList);
   // console.log("data", data);
 
-  if(isLoading) return <h3>Loading...</h3>
-  if(isError) return <h3>Error...</h3>
+  if(isLoading ) return <h3>Loading...</h3>
+  if(isError ) return <h3>Error...</h3>
+
+  const onClickRoom = async (id, uuid) => {
+    const prevChatData = await getPrevChat(id); 
+    // console.log("prevChatData",prevChatData);
+    const arr = prevChatData.map((item)=>item);
+    console.log("chatData: ", arr);
+    roomNumber(id, uuid, true, arr);
+  }
 
   return (
     <StBox>
@@ -20,7 +28,7 @@ function DmList({roomNumber}) {
           <StState></StState>
           <StTitle
             key={item.id} 
-            onClick={()=>{roomNumber(item.id, item.uuid, true)}}
+            onClick={()=>{return onClickRoom(item.id, item.uuid)}}
             >{item.title}
           </StTitle>
         </StContainer>

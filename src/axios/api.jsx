@@ -28,16 +28,17 @@ const getDMList = async () => {
 // 채널 바 조회(url channel로 변경하기)
 const getChannelList = async () => {
     const response = await instance.get("/api/channel");
-    console.log('channel response', response)
+    // console.log('channel response', response)
     return response.data;
 };
 
 // 이전 대화 불러오기
 const getPrevChat = async (dmId) => {
-  const response = await instance.get('/api/dm', {param:{id:dmId}});
-  console.log("response", response);
+  const response = await instance.get(`/api/dm/message?id=${dmId}`);
+  // console.log("response", response.data);
   return response.data;
 }
+
 
 // 회원가입
 const postSignUp = async (signUp) => {
